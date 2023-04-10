@@ -11,7 +11,7 @@ public class Predator extends Creatures {
     }
 
     @Override
-    protected void makeMove() {
+    public void makeMove() {
 
     }
 }

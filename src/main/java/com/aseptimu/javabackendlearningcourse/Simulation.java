@@ -1,17 +1,27 @@
 package com.aseptimu.javabackendlearningcourse;
 
+import com.aseptimu.javabackendlearningcourse.entities.Entity;
+import com.aseptimu.javabackendlearningcourse.entities.creatures.Creatures;
+import com.aseptimu.javabackendlearningcourse.map.Coordinate;
 import com.aseptimu.javabackendlearningcourse.map.Field;
-import com.aseptimu.javabackendlearningcourse.map.MapRenderer;
+
+import java.util.Map;
 
 public class Simulation {
     private int moveCounter;
-    private Field map = new Field();
-    private MapRenderer renderer = new MapRenderer();
+    private Field map;
 
-    public static void main(String[] args) {
-        Simulation sim = new Simulation();
-        sim.map.createEntities(5, 3, 0.2); //TODO: fix null entities; Refactor Entities creator to map, not Field field;
-        sim.renderer.render(sim.map);
+    public Simulation(Field map) {
+        this.map = map;
+    }
 
+    public void start() {
+        for (Map.Entry<Coordinate, Entity> entry : map.getEntities().entrySet()) {
+            Entity entity = entry.getValue();
+            if (entity instanceof Creatures) {
+                ((Creatures) entity).makeMove();
+            }
+        }
+        map.render();
     }
 }

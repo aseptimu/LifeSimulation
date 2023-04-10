@@ -13,5 +13,5 @@ public abstract class Creatures extends Entity {
         this.hp = hp;
     }
 
-    protected abstract void makeMove();
+    public abstract void makeMove();
 }

@@ -23,7 +23,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.aseptimu.javabackendlearningcourse.Simulation</mainClass>
+                            <mainClass>com.aseptimu.javabackendlearningcourse.Main</mainClass>
                         </manifest>
                     </archive>
                     <finalName>Simulation</finalName>
