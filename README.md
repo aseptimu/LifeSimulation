@@ -14,4 +14,8 @@ The simulation continues until either all the herbivores or all the predators ar
 
 ## Usage
 
-[//]: # (To use this project, simply compile and run the .jar file.)
+To use this project, simply compile and run the .jar file.
+```sh
+mvn clean install
+java -jar target/Simulation.jar
+```
