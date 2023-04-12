@@ -2,13 +2,12 @@ package com.aseptimu.javabackendlearningcourse.map;
 
 import com.aseptimu.javabackendlearningcourse.entities.Entity;
 import com.aseptimu.javabackendlearningcourse.entities.Grass;
-import com.aseptimu.javabackendlearningcourse.entities.Rock;
-import com.aseptimu.javabackendlearningcourse.entities.Tree;
+import com.aseptimu.javabackendlearningcourse.entities.obstacles.Rock;
+import com.aseptimu.javabackendlearningcourse.entities.obstacles.Tree;
 import com.aseptimu.javabackendlearningcourse.entities.creatures.Herbivore;
 import com.aseptimu.javabackendlearningcourse.entities.creatures.Predator;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 public class EntitiesCreator {
@@ -20,14 +19,14 @@ public class EntitiesCreator {
 
     public EntitiesCreator() {}
 
-    public boolean initEntities(int herbivoreCount, int predatorCount, double density) {
+    public void initEntities(int herbivoreCount, int predatorCount, double density) {
         int square = Field.WIDTH * Field.HEIGHT;
         if (herbivoreCount > square / 4 || herbivoreCount < 1) {
-            return true;
+            throw new IllegalArgumentException("The number of herbivores should be from 1 to " + square / 4);
         } else if (predatorCount > square / 4 || predatorCount < 1) {
-            return true;
+            throw new IllegalArgumentException("The number of predators should be from 1 to " + square / 4);
         } else if (density > 1 || density < 0) {
-            return true;
+            throw new IllegalArgumentException("Density should be between 0 and 1");
         }
         this.herbivoreCount = herbivoreCount;
         this.predatorCount = predatorCount;
@@ -35,10 +34,9 @@ public class EntitiesCreator {
         double obstacles = density * (Field.WIDTH * Field.HEIGHT - predatorCount - herbivoreCount - grassCount);
         this.rockCount = (int)obstacles / 2;
         this.treeCount = (int)obstacles / 2;
-        return false;
     }
-    public Map<Coordinate, Entity> generateEntities() {
-        Map<Coordinate, Entity> entities = new HashMap<>();
+    public HashMap<Coordinate, Entity> generateEntities(Field field) {
+        HashMap<Coordinate, Entity> entities = new HashMap<>();
         Coordinate coordinate;
         for (int i = 0; i < treeCount; i++) {
             coordinate = generateCoordinate(entities);
@@ -54,22 +52,21 @@ public class EntitiesCreator {
         }
         for (int i = 0; i < predatorCount; i++) {
             coordinate = generateCoordinate(entities);
-            entities.put(coordinate, new Predator(coordinate));
+            entities.put(coordinate, new Predator(coordinate, field));
         }
         for (int i = 0; i < herbivoreCount; i++) {
             coordinate = generateCoordinate(entities);
-            entities.put(coordinate, new Herbivore(coordinate));
+            entities.put(coordinate, new Herbivore(coordinate, field));
         }
         return entities;
     }
 
-    private Coordinate generateCoordinate(Map<Coordinate, Entity> map) {
+    private Coordinate generateCoordinate(HashMap<Coordinate, Entity> map) {
         Random random = new Random();
         Coordinate coordinate;
         do {
             coordinate = new Coordinate(random.nextInt(Field.HEIGHT), random.nextInt(Field.WIDTH));
-        } while (map.containsKey(coordinate)); //TODO: fix infinite loop in case full map and big density or lots of Creatures
+        } while (map.containsKey(coordinate));
         return coordinate;
     }
-
 }

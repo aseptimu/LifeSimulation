@@ -4,7 +4,7 @@ import com.aseptimu.javabackendlearningcourse.map.Coordinate;
 
 public abstract class Entity {
     private final String view;
-    private Coordinate coordinate;
+    protected Coordinate coordinate;
 
     public Entity(Coordinate coordinate, String view) {
         this.view = view;

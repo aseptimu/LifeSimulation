@@ -1,27 +1,42 @@
 package com.aseptimu.javabackendlearningcourse;
 
-import com.aseptimu.javabackendlearningcourse.entities.Entity;
-import com.aseptimu.javabackendlearningcourse.entities.creatures.Creatures;
-import com.aseptimu.javabackendlearningcourse.map.Coordinate;
 import com.aseptimu.javabackendlearningcourse.map.Field;
-
-import java.util.Map;
+import com.aseptimu.javabackendlearningcourse.map.MapRenderer;
 
 public class Simulation {
-    private int moveCounter;
-    private Field map;
+    private static int moveCount = 0;
+    private boolean running;
+    private final Field map;
+    public MapRenderer renderer = new MapRenderer();
 
     public Simulation(Field map) {
         this.map = map;
     }
 
-    public void start() {
-        for (Map.Entry<Coordinate, Entity> entry : map.getEntities().entrySet()) {
-            Entity entity = entry.getValue();
-            if (entity instanceof Creatures) {
-                ((Creatures) entity).makeMove();
+    public void nextTurn() {
+        while (true) {
+            map.nextTurn();
+            renderer.render(map);
+            moveCount++;
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
         }
-        map.render();
+    }
+    public void startSimulation() {
+        running = true;
+        while (running) {
+            nextTurn();
+        }
+    }
+
+    public void pauseSimulation() {
+        running = false;
+    }
+
+    public static int getMoveCount() {
+        return moveCount;
     }
 }
