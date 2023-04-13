@@ -19,22 +19,33 @@ public class Herbivore extends Creature {
 
     @Override
     public Herbivore makeMove() {//TODO: template. need to redo
-        Random random = new Random();
-        int direction = random.nextInt(4);
-        Coordinate newCoordinate = null;
-        if (direction % 4 == 0) {
-            newCoordinate = new Coordinate(coordinate.getY() + 1, coordinate.getX());
-        } else if (direction % 4 == 1) {
-            newCoordinate = new Coordinate(coordinate.getY() - 1, coordinate.getX());
-        } else if (direction % 4 == 2) {
-            newCoordinate = new Coordinate(coordinate.getY(), coordinate.getX() + 1);
-        } else {
-            newCoordinate = new Coordinate(coordinate.getY(), coordinate.getX() - 1);
+//        Random random = new Random();
+//        int direction = random.nextInt(4);
+//        Coordinate newCoordinate = null;
+//        if (direction % 4 == 0) {
+//            newCoordinate = new Coordinate(coordinate.getY() + 1, coordinate.getX());
+//        } else if (direction % 4 == 1) {
+//            newCoordinate = new Coordinate(coordinate.getY() - 1, coordinate.getX());
+//        } else if (direction % 4 == 2) {
+//            newCoordinate = new Coordinate(coordinate.getY(), coordinate.getX() + 1);
+//        } else {
+//            newCoordinate = new Coordinate(coordinate.getY(), coordinate.getX() - 1);
+//        }
+//        if (canMove(newCoordinate)) {
+//            field.removeEntity(coordinate);
+//            this.coordinate = newCoordinate;
+//        }
+        Coordinate[] path = pathFinder.findPath(this.coordinate);
+        Coordinate toFind = pathFinder.getClosestTarget();
+        if (toFind == null)
+            return this;
+        Coordinate prev = null;
+        while (toFind != this.coordinate) {
+            prev = toFind;
+            toFind = path[pathFinder.getIndexOfCoordinate(toFind)];
         }
-        if (canMove(newCoordinate)) {
-            field.removeEntity(coordinate);
-            this.coordinate = newCoordinate;
-        }
+        field.removeEntity(coordinate);
+        this.coordinate = prev;
         return this;
     }
 

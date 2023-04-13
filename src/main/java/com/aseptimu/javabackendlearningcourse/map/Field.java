@@ -26,13 +26,13 @@ public class Field {
     }
     public void nextTurn() {
         List<Creature> movingCreatures = new ArrayList<>();
-        for (Entity entity : entities.values()) {
+        for (Entity entity : entities.values()) {//TODO: Это проблема. Нужно двигать по одному существу вместо того чтобы двигать всех, а потом добавлять в List
             if (entity instanceof Creature) {
                 Creature creature = ((Creature) entity).makeMove();
                 movingCreatures.add(creature);
             }
         }
-        for (Creature creature : movingCreatures) {
+        for (Creature creature : movingCreatures) {//TODO: Проблема заключается в том что животные могут напрыгивать друг на друга
             entities.put(creature.getCoordinate(), creature);
         }
     }
