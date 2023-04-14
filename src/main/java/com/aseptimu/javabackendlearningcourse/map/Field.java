@@ -3,9 +3,9 @@ package com.aseptimu.javabackendlearningcourse.map;
 import com.aseptimu.javabackendlearningcourse.entities.Entity;
 import com.aseptimu.javabackendlearningcourse.entities.creatures.Creature;
 
-import java.util.ArrayList;
+import java.util.ArrayDeque;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Queue;
 
 public class Field {
     public static final int WIDTH = 20;
@@ -25,14 +25,15 @@ public class Field {
         entities = entitiesCreator.generateEntities(this);
     }
     public void nextTurn() {
-        List<Creature> movingCreatures = new ArrayList<>();
-        for (Entity entity : entities.values()) {//TODO: Это проблема. Нужно двигать по одному существу вместо того чтобы двигать всех, а потом добавлять в List
+        Queue<Creature> creatures = new ArrayDeque<>();
+        for (Entity entity : entities.values()) {
             if (entity instanceof Creature) {
-                Creature creature = ((Creature) entity).makeMove();
-                movingCreatures.add(creature);
+                creatures.add((Creature) entity);
             }
         }
-        for (Creature creature : movingCreatures) {//TODO: Проблема заключается в том что животные могут напрыгивать друг на друга
+        while (!creatures.isEmpty()) {
+            Creature creature = creatures.remove();
+            creature.makeMove();
             entities.put(creature.getCoordinate(), creature);
         }
     }
