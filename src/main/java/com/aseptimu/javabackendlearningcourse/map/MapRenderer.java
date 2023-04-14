@@ -7,7 +7,7 @@ import com.aseptimu.javabackendlearningcourse.entities.creatures.Predator;
 
 public class MapRenderer {
     private boolean showNotation;
-    private String consoleOutput;
+    private String consoleOutput = "";
     public void render(Field field) {
         System.out.print("\033[H\033[2J");
         if (showNotation) {
@@ -35,7 +35,7 @@ public class MapRenderer {
 
             System.out.println();
         }
-        System.out.println();
+        System.out.println(consoleOutput);
     }
 
     private void printInfo(int i) {

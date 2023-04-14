@@ -39,4 +39,9 @@ public class Simulation {
     public static int getMoveCount() {
         return moveCount;
     }
+
+    public MapRenderer getRenderer() {
+        return renderer;
+    }
+
 }

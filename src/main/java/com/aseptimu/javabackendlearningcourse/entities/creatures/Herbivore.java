@@ -1,5 +1,6 @@
 package com.aseptimu.javabackendlearningcourse.entities.creatures;
 
+import com.aseptimu.javabackendlearningcourse.entities.Grass;
 import com.aseptimu.javabackendlearningcourse.map.Coordinate;
 import com.aseptimu.javabackendlearningcourse.map.Field;
 
@@ -8,7 +9,7 @@ public class Herbivore extends Creature {
     private int hp;
     private int hpChange;
     public Herbivore(Coordinate coordinate, Field field) {
-        super(coordinate, "\uD83E\uDD8C", 1, field);
+        super(coordinate, "\uD83E\uDD8C", 3, field);
         this.hp = 100;
         this.hpChange = 0;
         numberOfHerbivores++;
@@ -17,7 +18,10 @@ public class Herbivore extends Creature {
     @Override
     public Herbivore makeMove() {
         Coordinate[] path = pathFinder.findPath(this.coordinate, this);
-        Coordinate next = pathFinder.findNextMove(path, this.coordinate);
+        Coordinate next = this.coordinate;
+        for (int i = 0; i < speed && !(field.getEntityByCoordinate(next) instanceof Grass); i++) {
+            next = pathFinder.findNextMove(path, next);
+        }
         field.removeEntity(coordinate);
         this.coordinate = next;
         return this;

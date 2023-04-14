@@ -6,7 +6,7 @@ import com.aseptimu.javabackendlearningcourse.map.Field;
 import com.aseptimu.javabackendlearningcourse.map.PathFinder;
 
 public abstract class Creature extends Entity {
-    private int speed;
+    protected int speed;
 
     protected Field field;
 
