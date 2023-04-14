@@ -8,12 +8,9 @@ import com.aseptimu.javabackendlearningcourse.map.Field;
 import java.util.Random;
 
 public class Predator extends Creature {
-    private static final int HP = 100;
-    private static final int SPEED = 1;
-    private static final String VIEW = "\uD83D\uDC3A";
     private static int numberOfPredators = 0;
     public Predator(Coordinate coordinate, Field field) {
-        super(coordinate, VIEW, SPEED, HP, field);
+        super(coordinate, "\uD83D\uDC3A", 1, 100, field);
         numberOfPredators++;
     }
 
