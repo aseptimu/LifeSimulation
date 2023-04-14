@@ -2,6 +2,8 @@ package com.aseptimu.javabackendlearningcourse.map;
 
 import com.aseptimu.javabackendlearningcourse.entities.Entity;
 import com.aseptimu.javabackendlearningcourse.entities.creatures.Creature;
+import com.aseptimu.javabackendlearningcourse.entities.creatures.Herbivore;
+import com.aseptimu.javabackendlearningcourse.entities.creatures.Predator;
 
 import java.util.ArrayDeque;
 import java.util.HashMap;
@@ -25,14 +27,22 @@ public class Field {
         entities = entitiesCreator.generateEntities(this);
     }
     public void nextTurn() {
-        Queue<Creature> creatures = new ArrayDeque<>();
+        Queue<Herbivore> herbivores = new ArrayDeque<>();
+        Queue<Predator> predators = new ArrayDeque<>();
         for (Entity entity : entities.values()) {
-            if (entity instanceof Creature) {
-                creatures.add((Creature) entity);
+            if (entity instanceof Herbivore) {
+                herbivores.add((Herbivore) entity);
+            } else if (entity instanceof Predator) {
+                predators.add((Predator) entity);
             }
         }
-        while (!creatures.isEmpty()) {
-            Creature creature = creatures.remove();
+        while (!herbivores.isEmpty()) {
+            Creature creature = herbivores.remove();
+            creature.makeMove();
+            entities.put(creature.getCoordinate(), creature);
+        }
+        while (!predators.isEmpty()) {
+            Creature creature = predators.remove();
             creature.makeMove();
             entities.put(creature.getCoordinate(), creature);
         }

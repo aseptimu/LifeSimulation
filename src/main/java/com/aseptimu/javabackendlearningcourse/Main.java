@@ -27,7 +27,6 @@ public class Main {
                 System.err.println("Invalid input! Enter numbers...\n");
             }
         }
-        scanner.close();
     }
 
     public static void main(String[] args) {

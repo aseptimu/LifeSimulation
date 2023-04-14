@@ -1,4 +1,4 @@
-package com.aseptimu.javabackendlearningcourse.pathfinding;
+package com.aseptimu.javabackendlearningcourse.map;
 
 import com.aseptimu.javabackendlearningcourse.entities.Entity;
 import com.aseptimu.javabackendlearningcourse.entities.Grass;
