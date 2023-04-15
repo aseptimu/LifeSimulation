@@ -5,8 +5,6 @@ import com.aseptimu.javabackendlearningcourse.entities.Grass;
 import com.aseptimu.javabackendlearningcourse.entities.creatures.Creature;
 import com.aseptimu.javabackendlearningcourse.entities.creatures.Herbivore;
 import com.aseptimu.javabackendlearningcourse.entities.creatures.Predator;
-import com.aseptimu.javabackendlearningcourse.map.Coordinate;
-import com.aseptimu.javabackendlearningcourse.map.Field;
 
 import java.util.*;
 
@@ -80,14 +78,18 @@ public class PathFinder {
         return false;
     }
     private List<Coordinate> getNeighbours(Coordinate current) {
-        List<Coordinate> set = new ArrayList<>();
+        LinkedList<Coordinate> set = new LinkedList<>();
         int x = current.getX();
         int y = current.getY();
         for (int i = y - 1; i <= y + 1; i++) {
             for (int j = x - 1; j <= x + 1; j++) {
                 Coordinate neighbour = new Coordinate(i, j);
                 if (!neighbour.equals(current)) {
-                    set.add(neighbour);
+                    if (x == j || y == i) {
+                        set.addFirst(neighbour);
+                    } else {
+                        set.addLast(neighbour);
+                    }
                 }
             }
         }
