@@ -35,7 +35,7 @@ public class EntitiesCreator {
         this.rockCount = (int)obstacles / 2;
         this.treeCount = (int)obstacles / 2;
     }
-    public HashMap<Coordinate, Entity> generateEntities(Field field) {
+    public HashMap<Coordinate, Entity> generateDefaultEntities(Field field) {
         HashMap<Coordinate, Entity> entities = new HashMap<>();
         Coordinate coordinate;
         for (int i = 0; i < treeCount; i++) {
@@ -66,7 +66,23 @@ public class EntitiesCreator {
         Coordinate coordinate;
         do {
             coordinate = new Coordinate(random.nextInt(Field.HEIGHT), random.nextInt(Field.WIDTH));
-        } while (map.containsKey(coordinate));
+        } while (map.get(coordinate) != null);
         return coordinate;
+    }
+
+    public void generateEntity(Class<? extends Entity> entity, Field field) {
+        HashMap<Coordinate, Entity> map = field.getEntities();
+        Coordinate coordinate = generateCoordinate(map);
+        if (entity == Grass.class) {
+            map.put(coordinate, new Grass(coordinate));
+        } else if (entity == Rock.class) {
+            map.put(coordinate, new Rock(coordinate));
+        } else if (entity == Tree.class) {
+            map.put(coordinate, new Tree(coordinate));
+        } else if (entity == Herbivore.class) {
+            map.put(coordinate, new Herbivore(coordinate, field));
+        } else if (entity == Predator.class) {
+            map.put(coordinate, new Predator(coordinate, field));
+        }
     }
 }

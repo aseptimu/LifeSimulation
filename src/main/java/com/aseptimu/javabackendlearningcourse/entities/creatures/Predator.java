@@ -8,7 +8,7 @@ public class Predator extends Creature {
     private static int numberOfPredators = 0;
     private static final int DAMAGE = 50;
     public Predator(Coordinate coordinate, Field field) {
-        super(coordinate, "\uD83D\uDC3A", 2, field);
+        super(coordinate, "\uD83D\uDC3A", 1, field);
         numberOfPredators++;
     }
 

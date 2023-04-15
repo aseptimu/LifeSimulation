@@ -1,26 +1,32 @@
 package com.aseptimu.javabackendlearningcourse.entities.creatures;
 
+import com.aseptimu.javabackendlearningcourse.entities.Entity;
 import com.aseptimu.javabackendlearningcourse.entities.Grass;
 import com.aseptimu.javabackendlearningcourse.map.Coordinate;
 import com.aseptimu.javabackendlearningcourse.map.Field;
 
 public class Herbivore extends Creature {
-    private static int numberOfHerbivores = 0;
+    private static int herbivoreCount = 0;
     private int hp;
     private int hpChange;
     public Herbivore(Coordinate coordinate, Field field) {
-        super(coordinate, "\uD83E\uDD8C", 3, field);
+        super(coordinate, "\uD83E\uDD8C", 1, field);
         this.hp = 100;
         this.hpChange = 0;
-        numberOfHerbivores++;
+        herbivoreCount++;
     }
 
     @Override
     public Herbivore makeMove() {
         Coordinate[] path = pathFinder.findPath(this.coordinate, this);
         Coordinate next = this.coordinate;
-        for (int i = 0; i < speed && !(field.getEntityByCoordinate(next) instanceof Grass); i++) {
+        Entity entity = this;
+        for (int i = 0; i < speed && !(entity instanceof Grass); i++) {
             next = pathFinder.findNextMove(path, next);
+            entity = field.getEntityByCoordinate(next);
+        }
+        if (entity instanceof Grass grass) {
+            grass.decrementNumberOfGrass();
         }
         field.removeEntity(coordinate);
         this.coordinate = next;
@@ -28,7 +34,7 @@ public class Herbivore extends Creature {
     }
 
     public static int getNumberOfHerbivores() {
-        return numberOfHerbivores;
+        return herbivoreCount;
     }
 
     public void hit(int damage) {
@@ -41,7 +47,7 @@ public class Herbivore extends Creature {
     }
 
     public void decrementNumberOfHerbivores() {
-        numberOfHerbivores--;
+        herbivoreCount--;
     }
 
 }

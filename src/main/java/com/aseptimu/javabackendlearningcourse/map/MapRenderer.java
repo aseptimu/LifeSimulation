@@ -2,6 +2,7 @@ package com.aseptimu.javabackendlearningcourse.map;
 
 import com.aseptimu.javabackendlearningcourse.Simulation;
 import com.aseptimu.javabackendlearningcourse.entities.Entity;
+import com.aseptimu.javabackendlearningcourse.entities.Grass;
 import com.aseptimu.javabackendlearningcourse.entities.creatures.Herbivore;
 import com.aseptimu.javabackendlearningcourse.entities.creatures.Predator;
 
@@ -45,6 +46,8 @@ public class MapRenderer {
             System.out.print(" Number of herbivores: " + Herbivore.getNumberOfHerbivores());
         } else if (i == 2) {
             System.out.print(" Number of predators: " + Predator.getNumberOfPredators());
+        } else if (i == 3) {
+            System.out.print(" Number of grass: " + Grass.getGrassCount());
         } else if (i == 5) {
             System.out.print(" Tips: turn on/off notation: 0");
         } else if (i == 6) {

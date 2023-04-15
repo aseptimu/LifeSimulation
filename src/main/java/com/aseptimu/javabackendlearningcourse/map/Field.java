@@ -1,6 +1,8 @@
 package com.aseptimu.javabackendlearningcourse.map;
 
+import com.aseptimu.javabackendlearningcourse.Simulation;
 import com.aseptimu.javabackendlearningcourse.entities.Entity;
+import com.aseptimu.javabackendlearningcourse.entities.Grass;
 import com.aseptimu.javabackendlearningcourse.entities.creatures.Creature;
 import com.aseptimu.javabackendlearningcourse.entities.creatures.Herbivore;
 import com.aseptimu.javabackendlearningcourse.entities.creatures.Predator;
@@ -14,17 +16,15 @@ public class Field {
     public static final int HEIGHT = 20;
 
     private HashMap<Coordinate, Entity> entities;
+    private final EntitiesCreator entitiesCreator;
 
     public Field() {
-        entities = new HashMap<>();
-        EntitiesCreator entitiesCreator = new EntitiesCreator();
-        entitiesCreator.generateEntities(this);
+        entitiesCreator = new EntitiesCreator();
     }
 
     public void createEntities(int herbivores, int predators, double density) {
-        EntitiesCreator entitiesCreator = new EntitiesCreator();
         entitiesCreator.initEntities(herbivores, predators, density);
-        entities = entitiesCreator.generateEntities(this);
+        entities = entitiesCreator.generateDefaultEntities(this);
     }
     public void nextTurn() {
         Queue<Herbivore> herbivores = new ArrayDeque<>();
@@ -46,6 +46,13 @@ public class Field {
             creature.makeMove();
             entities.put(creature.getCoordinate(), creature);
         }
+        if (Grass.getGrassCount() < Herbivore.getNumberOfHerbivores() / 2 + 1
+                && Simulation.getMoveCount() % 2 == 0) {
+            int generate = Herbivore.getNumberOfHerbivores() / 4 + 1;
+            for (int i = 0; i < generate; i++) {
+                entitiesCreator.generateEntity(Grass.class, this);
+            }
+        }
     }
     public Entity getEntityByCoordinate(Coordinate coordinate) {
         return entities.get(coordinate);
@@ -53,5 +60,9 @@ public class Field {
 
     public void removeEntity(Coordinate coordinate) {
         entities.put(coordinate, null);
+    }
+
+    public HashMap<Coordinate, Entity> getEntities() {
+        return entities;
     }
 }

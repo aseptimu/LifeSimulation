@@ -15,8 +15,8 @@ public class Simulation {
 
     public void nextTurn() {
         while (true) {
-            map.nextTurn();
             renderer.render(map);
+            map.nextTurn();
             moveCount++;
             try {
                 Thread.sleep(1000);
