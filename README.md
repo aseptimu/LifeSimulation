@@ -8,7 +8,8 @@ The simulation takes place on a map that also contains grass (food for herbivore
 The predators hunt the herbivores, while the herbivores search for grass to eat and avoid predators.
 The simulation continues until all the herbivores are eliminated.
 
-![](C:\Users\User\IdeaProjects\java-backend-learning-course\Simulation\demo.png)
+<img src="src/main/resources/demo.png" alt="Example Image" width="50%" height="50%">
+
 
 ## Features
 
