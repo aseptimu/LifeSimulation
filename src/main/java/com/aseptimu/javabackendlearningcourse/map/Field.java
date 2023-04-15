@@ -38,13 +38,17 @@ public class Field {
         }
         while (!herbivores.isEmpty()) {
             Creature creature = herbivores.remove();
-            creature.makeMove();
-            entities.put(creature.getCoordinate(), creature);
+            creature = creature.makeMove();
+            if (creature != null) {
+                entities.put(creature.getCoordinate(), creature);
+            }
         }
         while (!predators.isEmpty()) {
             Creature creature = predators.remove();
-            creature.makeMove();
-            entities.put(creature.getCoordinate(), creature);
+            creature = creature.makeMove();
+            if (creature != null) {
+                entities.put(creature.getCoordinate(), creature);
+            }
         }
         if (Grass.getGrassCount() < Herbivore.getNumberOfHerbivores() / 2 + 1
                 && Simulation.getMoveCount() % 2 == 0) {

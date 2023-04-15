@@ -18,6 +18,11 @@ public class Herbivore extends Creature {
 
     @Override
     public Herbivore makeMove() {
+        if (hp <= 0) {
+            herbivoreCount--;
+            field.removeEntity(coordinate);
+            return null;
+        }
         Coordinate[] path = pathFinder.findPath(this.coordinate, this);
         Coordinate next = this.coordinate;
         Entity entity = this;
@@ -40,14 +45,6 @@ public class Herbivore extends Creature {
     public void hit(int damage) {
         this.hp -= damage;
         this.hpChange += damage;
-    }
-
-    public int getHp() {
-        return hp;
-    }
-
-    public void decrementNumberOfHerbivores() {
-        herbivoreCount--;
     }
 
 }

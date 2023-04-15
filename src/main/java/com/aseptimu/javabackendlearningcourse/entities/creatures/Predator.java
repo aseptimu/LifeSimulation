@@ -8,7 +8,7 @@ public class Predator extends Creature {
     private static int numberOfPredators = 0;
     private static final int DAMAGE = 50;
     public Predator(Coordinate coordinate, Field field) {
-        super(coordinate, "\uD83D\uDC3A", 1, field);
+        super(coordinate, "\uD83D\uDC3A", 2, field);
         numberOfPredators++;
     }
 
@@ -22,11 +22,6 @@ public class Predator extends Creature {
         Entity entity = field.getEntityByCoordinate(next);
         if (entity instanceof Herbivore herbivore) {
             herbivore.hit(DAMAGE);
-            if (herbivore.getHp() <= 0) {
-                herbivore.decrementNumberOfHerbivores();
-                field.removeEntity(coordinate);
-                this.coordinate = next;
-            }
         } else {
             field.removeEntity(coordinate);
             this.coordinate = next;
