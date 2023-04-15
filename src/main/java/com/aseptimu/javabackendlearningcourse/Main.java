@@ -1,5 +1,6 @@
 package com.aseptimu.javabackendlearningcourse;
 
+import com.aseptimu.javabackendlearningcourse.map.ConsoleHandler;
 import com.aseptimu.javabackendlearningcourse.map.Field;
 
 import java.util.InputMismatchException;
@@ -34,6 +35,9 @@ public class Main {
         reader(field);
 
         Simulation simulation = new Simulation(field);
+        Thread t = new Thread(new ConsoleHandler(simulation));
+        t.setDaemon(true);
+        t.start();
         simulation.startSimulation();
     }
 }

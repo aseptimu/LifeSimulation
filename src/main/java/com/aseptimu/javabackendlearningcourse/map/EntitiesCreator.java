@@ -23,8 +23,8 @@ public class EntitiesCreator {
         int square = Field.WIDTH * Field.HEIGHT;
         if (herbivoreCount > square / 4 || herbivoreCount < 1) {
             throw new IllegalArgumentException("The number of herbivores should be from 1 to " + square / 4);
-        } else if (predatorCount > square / 4 || predatorCount < 1) {
-            throw new IllegalArgumentException("The number of predators should be from 1 to " + square / 4);
+        } else if (predatorCount > square / 4 || predatorCount < 0) {
+            throw new IllegalArgumentException("The number of predators should be from 0 to " + square / 4);
         } else if (density > 1 || density < 0) {
             throw new IllegalArgumentException("Density should be between 0 and 1");
         }

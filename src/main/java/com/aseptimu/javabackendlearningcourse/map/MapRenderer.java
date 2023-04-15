@@ -8,7 +8,7 @@ import com.aseptimu.javabackendlearningcourse.entities.creatures.Predator;
 
 public class MapRenderer {
     private boolean showNotation;
-    private String consoleOutput = "";
+    private String prompt = "";
     public void render(Field field) {
         System.out.print("\033[H\033[2J");
         if (showNotation) {
@@ -23,11 +23,6 @@ public class MapRenderer {
                 Entity entity = field.getEntityByCoordinate(coordinate);
                 if (entity != null) {
                     System.out.print("\u001b[48;5;94m" + "\033[1m" + entity.getView() + "\u001B[0m");
-//                    if (entity instanceof Herbivore herbivore) { //TODO: remove
-//                        if (herbivore.getHp() < 100) {
-//                            System.out.print(" Herbivore got hit");
-//                        }
-//                    }
                 } else {
                     System.out.print("\u001b[48;5;94m" + "  " + "\033[0m");
                 }
@@ -36,7 +31,7 @@ public class MapRenderer {
 
             System.out.println();
         }
-        System.out.println(consoleOutput);
+        System.out.println(prompt);
     }
 
     private void printInfo(int i) {
@@ -49,11 +44,13 @@ public class MapRenderer {
         } else if (i == 3) {
             System.out.print(" Number of grass: " + Grass.getGrassCount());
         } else if (i == 5) {
-            System.out.print(" Tips: turn on/off notation: 0");
+            System.out.print(" Commands:");
         } else if (i == 6) {
-            System.out.print("\tchange speed: 1 2 3");
+            System.out.print(" change speed: 1 2 3");
         } else if (i == 7) {
-            System.out.print("\tstop/start simulation: p");
+            System.out.print(" turn on/off notation: n");
+        } else if (i == 8) {
+            System.out.print(" stop/start simulation: p");
         }
     }
     private void printNotationX() {
@@ -64,11 +61,11 @@ public class MapRenderer {
         System.out.println();
     }
 
-    public void setShowNotation(boolean showNotation) {
-        this.showNotation = showNotation;
+    public void showNotation() {
+        showNotation = !showNotation;
     }
 
-    public void setConsoleOutput(String consoleOutput) {
-        this.consoleOutput = consoleOutput;
+    public void setPrompt(String prompt) {
+        this.prompt = prompt;
     }
 }
