@@ -4,11 +4,12 @@ import com.aseptimu.javabackendlearningcourse.map.ConsoleHandler;
 import com.aseptimu.javabackendlearningcourse.map.Field;
 
 import java.util.InputMismatchException;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
     private static void reader(Field field) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in).useLocale(Locale.US);
         while (true) {
             try {
                 System.out.print("Enter number of herbivore: ");

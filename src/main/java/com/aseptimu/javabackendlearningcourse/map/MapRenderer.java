@@ -10,7 +10,7 @@ public class MapRenderer {
     private boolean showNotation;
     private String prompt = "";
     public void render(Field field) {
-        System.out.print("\033[H\033[2J");
+        System.out.print("\n\033[H\033[2J");
         if (showNotation) {
             printNotationX();
         }
@@ -31,7 +31,7 @@ public class MapRenderer {
 
             System.out.println();
         }
-        System.out.println(prompt);
+        System.out.print(prompt);
     }
 
     private void printInfo(int i) {
@@ -51,6 +51,8 @@ public class MapRenderer {
             System.out.print(" turn on/off notation: n");
         } else if (i == 8) {
             System.out.print(" stop/start simulation: p");
+        } else if (i == 9) {
+            System.out.print(" finish simulation: f");
         }
     }
     private void printNotationX() {

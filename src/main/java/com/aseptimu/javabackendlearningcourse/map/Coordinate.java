@@ -3,8 +3,8 @@ package com.aseptimu.javabackendlearningcourse.map;
 import java.util.Objects;
 
 public class Coordinate {
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     public Coordinate(int y, int x) {
         this.x = x;

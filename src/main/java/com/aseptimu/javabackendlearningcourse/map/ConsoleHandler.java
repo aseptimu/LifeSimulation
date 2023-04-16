@@ -24,6 +24,7 @@ public class ConsoleHandler implements Runnable {
                 case "3" -> simulation.setDelay(2000);
                 case "p" -> simulation.stop();
                 case "n" -> renderer.showNotation();
+                case "f" -> simulation.finish();
             }
         }
 

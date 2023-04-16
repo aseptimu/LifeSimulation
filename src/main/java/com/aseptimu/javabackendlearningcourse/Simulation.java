@@ -62,4 +62,7 @@ public class Simulation {
     public void stop() {
         stopped = !stopped;
     }
+    public void finish() {
+        running = false;
+    }
 }
