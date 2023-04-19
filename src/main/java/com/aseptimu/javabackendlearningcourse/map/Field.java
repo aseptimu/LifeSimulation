@@ -15,16 +15,17 @@ public class Field {
     public static final int WIDTH = 20;
     public static final int HEIGHT = 20;
 
-    private HashMap<Coordinate, Entity> entities;
+    private final HashMap<Coordinate, Entity> entities;
     private final EntitiesCreator entitiesCreator;
 
     public Field() {
         entitiesCreator = new EntitiesCreator();
+        entities = new HashMap<>();
     }
 
     public void createEntities(int herbivores, int predators, double density) {
         entitiesCreator.initEntities(herbivores, predators, density);
-        entities = entitiesCreator.generateDefaultEntities(this);
+        entitiesCreator.generateDefaultEntities(this);
     }
     public void nextTurn() {
         Queue<Herbivore> herbivores = new ArrayDeque<>();
@@ -66,7 +67,11 @@ public class Field {
         entities.put(coordinate, null);
     }
 
-    public HashMap<Coordinate, Entity> getEntities() {
-        return entities;
+    public void addEntity(Coordinate coordinate, Entity entity) {
+        entities.put(coordinate, entity);
+    }
+
+    public boolean isCoordinateEmpty(Coordinate coordinate) {
+        return entities.get(coordinate) != null;
     }
 }

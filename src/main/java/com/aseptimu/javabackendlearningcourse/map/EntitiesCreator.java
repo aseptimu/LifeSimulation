@@ -7,7 +7,6 @@ import com.aseptimu.javabackendlearningcourse.entities.obstacles.Tree;
 import com.aseptimu.javabackendlearningcourse.entities.creatures.Herbivore;
 import com.aseptimu.javabackendlearningcourse.entities.creatures.Predator;
 
-import java.util.HashMap;
 import java.util.Random;
 
 public class EntitiesCreator {
@@ -35,54 +34,51 @@ public class EntitiesCreator {
         this.rockCount = (int)obstacles / 2;
         this.treeCount = (int)obstacles / 2;
     }
-    public HashMap<Coordinate, Entity> generateDefaultEntities(Field field) {
-        HashMap<Coordinate, Entity> entities = new HashMap<>();
+    public void generateDefaultEntities(Field field) {
         Coordinate coordinate;
         for (int i = 0; i < treeCount; i++) {
-            coordinate = generateCoordinate(entities);
-            entities.put(coordinate, new Tree(coordinate));
+            coordinate = generateCoordinate(field);
+            field.addEntity(coordinate, new Tree(coordinate));
         }
         for (int i = 0; i < rockCount; i++) {
-            coordinate = generateCoordinate(entities);
-            entities.put(coordinate, new Rock(coordinate));
+            coordinate = generateCoordinate(field);
+            field.addEntity(coordinate, new Rock(coordinate));
         }
         for (int i = 0; i < grassCount; i++) {
-            coordinate = generateCoordinate(entities);
-            entities.put(coordinate, new Grass(coordinate));
+            coordinate = generateCoordinate(field);
+            field.addEntity(coordinate, new Grass(coordinate));
         }
         for (int i = 0; i < predatorCount; i++) {
-            coordinate = generateCoordinate(entities);
-            entities.put(coordinate, new Predator(coordinate, field));
+            coordinate = generateCoordinate(field);
+            field.addEntity(coordinate, new Predator(coordinate, field));
         }
         for (int i = 0; i < herbivoreCount; i++) {
-            coordinate = generateCoordinate(entities);
-            entities.put(coordinate, new Herbivore(coordinate, field));
+            coordinate = generateCoordinate(field);
+            field.addEntity(coordinate, new Herbivore(coordinate, field));
         }
-        return entities;
     }
 
-    private Coordinate generateCoordinate(HashMap<Coordinate, Entity> map) {
+    private Coordinate generateCoordinate(Field field) {
         Random random = new Random();
         Coordinate coordinate;
         do {
             coordinate = new Coordinate(random.nextInt(Field.HEIGHT), random.nextInt(Field.WIDTH));
-        } while (map.get(coordinate) != null);
+        } while (field.isCoordinateEmpty(coordinate));
         return coordinate;
     }
 
     public void generateEntity(Class<? extends Entity> entity, Field field) {
-        HashMap<Coordinate, Entity> map = field.getEntities();
-        Coordinate coordinate = generateCoordinate(map);
+        Coordinate coordinate = generateCoordinate(field);
         if (entity == Grass.class) {
-            map.put(coordinate, new Grass(coordinate));
+            field.addEntity(coordinate, new Grass(coordinate));
         } else if (entity == Rock.class) {
-            map.put(coordinate, new Rock(coordinate));
+            field.addEntity(coordinate, new Rock(coordinate));
         } else if (entity == Tree.class) {
-            map.put(coordinate, new Tree(coordinate));
+            field.addEntity(coordinate, new Tree(coordinate));
         } else if (entity == Herbivore.class) {
-            map.put(coordinate, new Herbivore(coordinate, field));
+            field.addEntity(coordinate, new Herbivore(coordinate, field));
         } else if (entity == Predator.class) {
-            map.put(coordinate, new Predator(coordinate, field));
+            field.addEntity(coordinate, new Predator(coordinate, field));
         }
     }
 }
