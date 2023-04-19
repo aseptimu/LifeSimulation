@@ -24,7 +24,7 @@ public abstract class Creature extends Entity {
 
 
 
-    public abstract Creature makeMove();
+    public abstract void makeMove();
 
 
 }

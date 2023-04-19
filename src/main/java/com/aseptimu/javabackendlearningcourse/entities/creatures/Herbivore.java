@@ -19,9 +19,9 @@ public class Herbivore extends Creature {
     }
 
     @Override
-    public Herbivore makeMove() {
+    public void makeMove() {
         if (died()) {
-            return null;
+            return;
         }
         Coordinate[] path = pathFinder.findPath(this.coordinate, this);
         Coordinate next = this.coordinate;
@@ -32,7 +32,7 @@ public class Herbivore extends Creature {
                 hp -= 25;
             }
             if (died()) {
-                return null;
+                return;
             }
             next = pathFinder.findNextMove(path, next);
             entity = field.getEntityByCoordinate(next);
@@ -44,7 +44,7 @@ public class Herbivore extends Creature {
         }
         field.removeEntity(coordinate);
         this.coordinate = next;
-        return this;
+        field.addEntity(coordinate, this);
     }
 
     private boolean died() {

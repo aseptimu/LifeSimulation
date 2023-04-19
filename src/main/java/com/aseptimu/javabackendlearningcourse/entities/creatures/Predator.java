@@ -13,7 +13,7 @@ public class Predator extends Creature {
     }
 
     @Override
-    public Predator makeMove() {
+    public void makeMove() {
         Coordinate[] path = pathFinder.findPath(this.coordinate, this);
         Coordinate next = this.coordinate;
         for (int i = 0; i < speed && !(field.getEntityByCoordinate(next) instanceof Herbivore); i++) {
@@ -25,8 +25,8 @@ public class Predator extends Creature {
         } else {
             field.removeEntity(coordinate);
             this.coordinate = next;
+            field.addEntity(coordinate, this);
         }
-        return this;
     }
 
 

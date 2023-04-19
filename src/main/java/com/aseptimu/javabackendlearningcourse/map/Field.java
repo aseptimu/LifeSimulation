@@ -7,9 +7,9 @@ import com.aseptimu.javabackendlearningcourse.entities.creatures.Creature;
 import com.aseptimu.javabackendlearningcourse.entities.creatures.Herbivore;
 import com.aseptimu.javabackendlearningcourse.entities.creatures.Predator;
 
-import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Queue;
+import java.util.List;
 
 public class Field {
     public static final int WIDTH = 20;
@@ -28,28 +28,13 @@ public class Field {
         entitiesCreator.generateDefaultEntities(this);
     }
     public void nextTurn() {
-        Queue<Herbivore> herbivores = new ArrayDeque<>();
-        Queue<Predator> predators = new ArrayDeque<>();
-        for (Entity entity : entities.values()) {
-            if (entity instanceof Herbivore) {
-                herbivores.add((Herbivore) entity);
-            } else if (entity instanceof Predator) {
-                predators.add((Predator) entity);
-            }
+        List<Herbivore> herbivores = getEntitiesByType(Herbivore.class);
+        List<Predator> predators = getEntitiesByType(Predator.class);
+        for (Herbivore herbivore : herbivores) {
+            herbivore.makeMove();
         }
-        while (!herbivores.isEmpty()) {
-            Creature creature = herbivores.remove();
-            creature = creature.makeMove();
-            if (creature != null) {
-                entities.put(creature.getCoordinate(), creature);
-            }
-        }
-        while (!predators.isEmpty()) {
-            Creature creature = predators.remove();
-            creature = creature.makeMove();
-            if (creature != null) {
-                entities.put(creature.getCoordinate(), creature);
-            }
+        for (Predator predator : predators) {
+            predator.makeMove();
         }
         if (Grass.getGrassCount() < Herbivore.getNumberOfHerbivores() / 2 + 1
                 && Simulation.getMoveCount() % 2 == 0) {
@@ -59,6 +44,17 @@ public class Field {
             }
         }
     }
+
+    private <T extends Creature> List<T> getEntitiesByType(Class<T> predatorClass) {
+        List<T> entity = new ArrayList<>();
+        for (Object en : entities.values()) {
+            if (predatorClass.isInstance(en)) {
+                entity.add(predatorClass.cast(en));
+            }
+        }
+        return entity;
+    }
+
     public Entity getEntityByCoordinate(Coordinate coordinate) {
         return entities.get(coordinate);
     }
