@@ -5,11 +5,11 @@ import com.aseptimu.javabackendlearningcourse.map.Coordinate;
 import com.aseptimu.javabackendlearningcourse.map.Field;
 
 public class Predator extends Creature {
-    private static int numberOfPredators = 0;
+    private static int predatorsCount = 0;
     private static final int DAMAGE = 50;
     public Predator(Coordinate coordinate, Field field) {
         super(coordinate, "\uD83D\uDC3A", 2, field);
-        numberOfPredators++;
+        predatorsCount++;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class Predator extends Creature {
     }
 
 
-    public static int getNumberOfPredators() {
-        return numberOfPredators;
+    public static int getPredatorsCount() {
+        return predatorsCount;
     }
 }

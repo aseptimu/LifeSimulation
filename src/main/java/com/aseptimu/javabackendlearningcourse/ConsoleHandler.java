@@ -1,11 +1,11 @@
-package com.aseptimu.javabackendlearningcourse.map;
+package com.aseptimu.javabackendlearningcourse;
 
-import com.aseptimu.javabackendlearningcourse.Simulation;
+import com.aseptimu.javabackendlearningcourse.map.MapRenderer;
 
 import java.util.Scanner;
 
 public class ConsoleHandler implements Runnable {
-    Simulation simulation;
+    private final Simulation simulation;
 
     public ConsoleHandler(Simulation simulation) {
         this.simulation = simulation;
@@ -16,7 +16,7 @@ public class ConsoleHandler implements Runnable {
         MapRenderer renderer = simulation.getRenderer();
         renderer.setPrompt("Enter command: ");
         Scanner scanner = new Scanner(System.in);
-        while (true) {
+        while (!Thread.interrupted()) {
             String command = scanner.next();
             switch (command) {
                 case "1" -> simulation.setDelay(500);

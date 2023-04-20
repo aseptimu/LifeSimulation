@@ -40,7 +40,7 @@ public class MapRenderer {
         } else if (i == 1) {
             System.out.print(" Number of herbivores: " + Herbivore.getNumberOfHerbivores());
         } else if (i == 2) {
-            System.out.print(" Number of predators: " + Predator.getNumberOfPredators());
+            System.out.print(" Number of predators: " + Predator.getPredatorsCount());
         } else if (i == 3) {
             System.out.print(" Number of grass: " + Grass.getGrassCount());
         } else if (i == 5) {
@@ -61,6 +61,10 @@ public class MapRenderer {
             System.out.print(i + (i < 10 ? " " : ""));
         }
         System.out.println();
+    }
+
+    public void endSimulation() {
+        System.out.println("\u001B[34mNo herbivores left");
     }
 
     public void showNotation() {
