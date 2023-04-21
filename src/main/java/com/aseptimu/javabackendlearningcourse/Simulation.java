@@ -16,12 +16,14 @@ public class Simulation {
     public MapRenderer renderer = new MapRenderer();
     private final List<Action> initActions;
     private final Move move;
+    private final GrassController grassController;
 
     private boolean stopped;
 
     public Simulation(Field map) {
         initActions = new ArrayList<>();
         move = new Move();
+        grassController = new GrassController();
         this.map = map;
     }
     public void init() {
@@ -39,6 +41,7 @@ public class Simulation {
                 return ;
             }
             move.perform(map);
+            grassController.perform(map);
             moveCount++;
             try {
                 Thread.sleep(delay);

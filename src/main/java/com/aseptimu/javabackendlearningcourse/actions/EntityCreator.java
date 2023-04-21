@@ -8,6 +8,7 @@ import java.util.Random;
 public abstract class EntityCreator extends Action {
     protected int amount;
     protected boolean isInitialized;
+    private static final Random random = new Random();
 
     public EntityCreator() {}
 
@@ -22,7 +23,6 @@ public abstract class EntityCreator extends Action {
     }
 
     protected Coordinate generateCoordinate(Field field) {
-        Random random = new Random();
         Coordinate coordinate;
         do {
             coordinate = new Coordinate(random.nextInt(Field.HEIGHT), random.nextInt(Field.WIDTH));
